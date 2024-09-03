@@ -1,0 +1,33 @@
+cmake_minimum_required(VERSION 3.5)
+project(opencv)
+
+add_library(opencv INTERFACE)
+
+if (WIN32)
+  set(OPENCV_PATH "${CMAKE_CURRENT_SOURCE_DIR}/opencv")
+  set(OPENCV_INCLUDE_PATH "${OPENCV_PATH}/build/include")
+  set(OPENCV_LIB_PATH "${OPENCV_PATH}/build/x64/vc15")
+
+  if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    file(GLOB OPENCV_LIB "${OPENCV_LIB_PATH}/lib/*d.lib")
+    file(GLOB OPENCV_DLL "${OPENCV_LIB_PATH}/bin/*d.dll")
+  else()
+    file(GLOB OPENCV_LIB "${OPENCV_LIB_PATH}/lib/*.lib")
+    file(GLOB OPENCV_DLL "${OPENCV_LIB_PATH}/bin/*.dll")
+    list(FILTER OPENCV_LIB EXCLUDE REGEX ".*d\\.lib")
+    list(FILTER OPENCV_DLL EXCLUDE REGEX ".*d\\.dll")
+  endif()
+else()
+  find_package(OpenCV REQUIRED)
+  set(OPENCV_INCLUDE_PATH "${OpenCV_INCLUDE_DIRS}")
+  set(OPENCV_LIB "${OpenCV_LIBS}")
+endif()
+
+target_link_libraries(opencv INTERFACE ${OPENCV_LIB})
+target_include_directories(opencv INTERFACE ${OPENCV_INCLUDE_PATH})
+
+set(OPENCV_LIB ${OPENCV_LIB} PARENT_SCOPE)
+set(OPENCV_DLL ${OPENCV_DLL} PARENT_SCOPE)
+message("OpenCV include path: ${OPENCV_INCLUDE_PATH}")
+message("OpenCV lib: ${OPENCV_LIB}")
+message("OpenCV dll: ${OPENCV_DLL}")
