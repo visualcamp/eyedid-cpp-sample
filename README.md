@@ -99,6 +99,43 @@ If you have any problems, feel free to [contact us](https://sdk.eyedid.ai/contac
 
 [eyedid-manage]: https://manage.eyedid.ai/
 
+## How to Allow `libeyedid_core.dylib` on macOS
+
+When running an application that links against the `libeyedid_core.dylib` library on macOS, you may need to adjust your security settings to allow its execution. Follow the steps below to enable and use `libeyedid_core.dylib`:
+
+### 1. Error Message Upon Application Launch
+
+When you run an application that uses `libeyedid_core.dylib`, you might see the following error message:
+
+“libeyedid_core.dylib” was blocked from use because it is not from an identified developer.
+
+### 2. Open System Preferences
+
+- After seeing the error message, open **System Preferences** on your Mac.
+- You can open **System Preferences** by clicking the Apple logo in the top-left corner of your screen and selecting "System Preferences" from the dropdown menu.
+
+### 3. Navigate to Security & Privacy Settings
+
+- In System Preferences, click on the **Privacy & Security** (or "Security & Privacy") icon.
+
+### 4. Allow the Blocked Library
+
+- Scroll down to the **"Allow applications downloaded from"** section in the **Privacy & Security** panel.
+- You should see a message stating that `libeyedid_core.dylib` was blocked.
+- Click the **"Allow Anyway"** button to permit the execution of `libeyedid_core.dylib`.
+
+![Allow Anyway Screenshot](media/mac-qna.png)
+
+### 5. Relaunch the Application
+
+- After clicking "Allow Anyway," relaunch the application. You should now be able to use `libeyedid_core.dylib` without issues.
+
+### Important Notes
+
+- This process is specific to macOS. Only allow `libeyedid_core.dylib` if it is from a trusted source.
+- After allowing the library, ensure that the application functions as expected.
+
+
 ## License Information
 
 ### SDK License
