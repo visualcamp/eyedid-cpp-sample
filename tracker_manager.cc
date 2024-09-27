@@ -101,15 +101,14 @@ void TrackerManager::OnDrowsiness(uint64_t timestamp, bool isDrowsiness, float i
 
 void TrackerManager::OnCalibrationProgress(float progress) {
   on_calib_progress_(progress);
-  gaze_tracker_.startCollectSamples();
 }
 
 void TrackerManager::OnCalibrationNextPoint(float next_point_x, float next_point_y) {
   const auto winPos = eyedid::getWindowPosition(window_name_);
   const auto x = static_cast<int>(next_point_x - static_cast<float>(winPos.x));
   const auto y = static_cast<int>(next_point_y - static_cast<float>(winPos.y));
-
   on_calib_next_point_(x, y);
+  gaze_tracker_.startCollectSamples();
 }
 
 void TrackerManager::OnCalibrationFinish(const std::vector<float> &calib_data) {
