@@ -44,6 +44,7 @@ class TrackerManager :
  private:
   void OnMetrics(uint64_t timestamp, const EyedidGazeData& gaze_data, const EyedidFaceData& face_data,
                 const EyedidBlinkData& blink_data, const EyedidUserStatusData& user_status_data) override;
+  void OnDrop(uint64_t tiestamp) override;
   void OnGaze(uint64_t timestamp, float x, float y, float fixation_x, float fixation_y,
               EyedidTrackingState tracking_state, EyedidEyeMovementState eye_movement_state);
   void OnFace(uint64_t timestamp, float score, float left, float top, float right, float bottom,
@@ -57,6 +58,7 @@ class TrackerManager :
   void OnCalibrationProgress(float progress) override;
   void OnCalibrationNextPoint(float next_point_x, float next_point_y) override;
   void OnCalibrationFinish(const std::vector<float> &calib_data) override;
+  void OnCalibrationCancel(const std::vector<float> &calib_data) override;
 
   eyedid::GazeTracker gaze_tracker_;
   std::future<void> delayed_calibration_;

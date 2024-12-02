@@ -51,6 +51,10 @@ void TrackerManager::OnMetrics(uint64_t timestamp,
   this->OnDrowsiness(timestamp, user_status_data.is_drowsy, user_status_data.drowsiness_intensity);
 }
 
+void TrackerManager::OnDrop(uint64_t timestamp) {
+  std::cout << "Tracker dropped at " << timestamp << '\n';
+}
+
 void TrackerManager::OnGaze(uint64_t timestamp,
                             float x, float y,
                             float fixation_x, float fixation_y,
@@ -114,6 +118,10 @@ void TrackerManager::OnCalibrationNextPoint(float next_point_x, float next_point
 void TrackerManager::OnCalibrationFinish(const std::vector<float> &calib_data) {
   on_calib_finish_(calib_data);
   calibrating_.store(false, std::memory_order_release);
+}
+
+void TrackerManager::OnCalibrationCancel(const std::vector<float> &calib_data) {
+  std::cout << "Calibration canceled\n";
 }
 
 bool TrackerManager::initialize(const std::string &license_key, const EyedidTrackerOptions& options) {
